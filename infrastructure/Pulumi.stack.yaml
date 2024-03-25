@@ -1,0 +1,9 @@
+config:
+  cluster:gitToken:
+    secure: AAABACKhQSKz5CewyHt3pRLoM6/izcxxHwAFFaHXHf06UHwD9iCVRAlF5gvnagOyBl9BXAZJuYOu7J6XgedmWBdp0O0Zwij+
+  aws:region: eu-west-1
+  infrastructure:desiredClusterSize: "2"
+  infrastructure:eksNodeInstanceType: t3.micro
+  infrastructure:maxClusterSize: "2"
+  infrastructure:minClusterSize: "1"
+  infrastructure:vpcNetworkCidr: 10.0.0.0/16
