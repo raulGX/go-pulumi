@@ -1,0 +1,25 @@
+name: Build & deploy
+run-name: Build & deploy
+on: [push]
+jobs:
+  Build-Deploy:
+    container: alpine/helm
+    runs-on: [self-hosted, 'cluster-ci']
+    services:
+      docker:
+        image: docker:dind
+        options: --privileged
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: build image 
+        run: |
+          docker build -t serviceA:${{ github.sha }} ./serviceA
+          docker build -t serviceB:${{ github.sha }} ./serviceB
+          docker push serviceA ecr:serviceA
+          docker push serviceB ecr:serviceB
+      - name: deploy on your cluster
+        run: |
+          sudo apt-get install helm
+          helm upgrade ./serviceA --set image="serviceA:${{ github.sha }} 
+          helm upgrade ./serviceB --set image="serviceB:${{ github.sha }} 
